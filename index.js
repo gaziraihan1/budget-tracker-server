@@ -78,6 +78,15 @@ app.post("/login", async ( req, res ) => {
         res.status(500).json({error: err.message})
     }
 });
+app.post("/logout", (req, res) => {
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: false, 
+        sameSite: "lax",
+    });
+    res.status(200).json({ message: "Logged out" });
+});
+
 
 app.get("/profile", async (req, res) => {
   const token = req.cookies.token;
